@@ -317,12 +317,21 @@ public class Solution {
         return writeIndex;
     }
 
+
+    public boolean isSubsequence(String s, String t) {
+        int low = 0;
+        int high = 0;
+        while (low < s.length() && high < t.length()){
+            if(s.charAt(low) == t.charAt(high)){
+                low++;
+            }
+            high++;
+        }
+        return low == s.length();
+    }
+
     public static void main(String[] args) {
         Solution s = new Solution();
-//        System.out.println(s.compress1(new char[]{'a', 'b', 'c'}));
-        System.out.println(s.compress(new char[]{'a', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'}));
-//        s.compress(new char[]{'a', 'a', 'b', 'b', 'c', 'c', 'c'});
 
-//        s.uniqueOccurrences(new int[]{1,2,2,1,1,3});
     }
 }
