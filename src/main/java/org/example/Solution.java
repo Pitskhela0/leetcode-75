@@ -330,8 +330,34 @@ public class Solution {
         return low == s.length();
     }
 
+    public int maxArea(int[] height) {
+        int max = Integer.MIN_VALUE;
+        int low = 0;
+        int high = height.length-1;
+
+        while (low < high){
+            int minHeight = Math.min(height[low], height[high]);
+            int length = high - low;
+            int waterAmount = minHeight * length;
+
+            if(waterAmount > max){
+                max = waterAmount;
+            }
+
+            if(height[low] > height[high]){
+                high--;
+            }
+            else {
+                low++;
+            }
+
+        }
+
+        return max;
+    }
+
     public static void main(String[] args) {
         Solution s = new Solution();
-
+        System.out.println(s.maxArea(new int[]{1, 8, 6, 2, 5, 4, 8, 3, 7}));
     }
 }
