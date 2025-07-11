@@ -350,14 +350,51 @@ public class Solution {
             else {
                 low++;
             }
-
         }
-
         return max;
     }
 
+//    public int maxOperations(int[] nums, int k) {
+//        int result = 0;
+//        int[] checked = new int[nums.length];
+//        Arrays.fill(checked,0);
+//
+//        for (int i = 0; i < nums.length; i++) {
+//            for (int j = i+1; j < nums.length; j++) {
+//                if(nums[i] + nums[j] == k && (checked[i] == 0 && checked[j] == 0)){
+//                    result+=1;
+//                    checked[i] = 1;
+//                    checked[j] = 1;
+//                }
+//            }
+//        }
+//        return result;
+//    }
+
+    // 5 4 3 2 1
+
+    public boolean increasingTriplet(int[] nums) {
+        int min = Integer.MAX_VALUE;
+        int medium = Integer.MAX_VALUE;
+
+        for (int number : nums){
+            if(number <= min){
+                min = number;
+            }
+            else if(number <= medium){
+                medium = number;
+            }
+            else {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
     public static void main(String[] args) {
         Solution s = new Solution();
-        System.out.println(s.maxArea(new int[]{1, 8, 6, 2, 5, 4, 8, 3, 7}));
+//        System.out.println(s.maxOperations(new int[]{3, 1, 3, 4, 3}, 6));
     }
 }
