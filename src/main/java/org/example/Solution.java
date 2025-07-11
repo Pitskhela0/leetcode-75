@@ -392,6 +392,25 @@ public class Solution {
         return false;
     }
 
+    // 01 1 02 3 12
+    // 1 01 02 3 12
+    //
+
+    public void moveZeroes(int[] nums) {
+        int mainPointer = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if(nums[i] != 0){
+                nums[mainPointer] = nums[i];
+                mainPointer++;
+            }
+        }
+
+        for (int i = mainPointer; i < nums.length; i++) {
+            nums[i] = 0;
+        }
+
+    }
+
 
     public static void main(String[] args) {
         Solution s = new Solution();
