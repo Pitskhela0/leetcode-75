@@ -1,5 +1,6 @@
 package org.example;
 
+import java.awt.image.ImageProducer;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -411,9 +412,81 @@ public class Solution {
 
     }
 
+    // 5
+    // how can we construct 5
+    // 1 4
+    // 2 3
+
+    public int maxOperations(int[] nums, int k) {
+        int iterations = k/2;
+        int result = 0;
+        Map<Integer, Integer> number_amount = new HashMap<>();
+        // count amount of each number
+        for (int num : nums){
+            if(num < k)
+                number_amount.put(num, number_amount.getOrDefault(num,0)+1);
+        }
+
+
+        for (int i = 1; i <= iterations; i++) {
+            if(k - i == i){
+                if(number_amount.containsKey(i))
+                    result += number_amount.get(i)/2;
+            }
+            else {
+
+                if(number_amount.containsKey(i) && number_amount.containsKey(k-i)){
+                    result += Math.min(number_amount.get(i), number_amount.get(k-i));
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public int maxOperationsOptimized(int[] nums, int k){
+        int result = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+
+        for (int num : nums){
+            int comp = k - num;
+            if(map.containsKey(comp) && map.get(comp) > 0){
+                result++;
+                map.put(comp, map.get(comp) - 1);
+            }
+            else {
+                map.put(comp, map.getOrDefault(comp,0)+1);
+            }
+        }
+        return result;
+    }
+
+    public int maxOperationsTwoPointers(int[] nums, int k){
+        int result = 0;
+        Arrays.sort(nums);
+
+        int low = 0, high = nums.length-1;
+
+        while (low < high){
+            if(nums[low] + nums[high] == k){
+                result++;
+                low++;
+                high++;
+            }
+            else if(nums[low] + nums[high] < k){
+                low++;
+            }
+            else {
+                high--;
+            }
+        }
+
+        return result;
+    }
+
 
     public static void main(String[] args) {
         Solution s = new Solution();
-//        System.out.println(s.maxOperations(new int[]{3, 1, 3, 4, 3}, 6));
+        System.out.println(s.maxOperations(new int[]{3,1,3,4,3}, 6));
     }
 }
