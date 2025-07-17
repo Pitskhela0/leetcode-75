@@ -1,8 +1,6 @@
 package org.example;
 
-import java.awt.image.ImageProducer;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Solution {
     public String mergeAlternately(String word1, String word2) {
@@ -554,19 +552,22 @@ public class Solution {
 
         return result;
     }
+    public int largestAltitude(int[] gain) {
+        int[] altitudes = new int[gain.length+1];
+        for (int i = 1; i < altitudes.length; i++) {
+            altitudes[i] = altitudes[i-1]+gain[i-1];
+        }
+        int max = Integer.MIN_VALUE;
+        for(int alts: altitudes){
+            if(max < alts)
+                max = alts;
+        }
+        return max;
+    }
 
 
     public static void main(String[] args) {
         Solution s = new Solution();
-//        System.out.println(s.equalPairs(new int[][]{
-//                new int[]{3, 1, 2, 2},
-//                new int[]{1, 4, 4, 5},
-//                new int[]{2, 4, 2, 2},
-//                new int[]{2, 4, 2, 2}
-//        }));
-        System.out.println(s.equalPairs(new int[][]{
-                new int[]{11, 1},
-                new int[]{1, 11}
-        }));
+        System.out.println(s.findMaxAverage(new int[]{0, 4, 0, 3, 2}, 1));
     }
 }
