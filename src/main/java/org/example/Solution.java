@@ -518,10 +518,55 @@ public class Solution {
         return nonZero % 2 == 0;
     }
 
+    public int equalPairs(int[][] grid) {
+        Map<String,Integer> row_wise = new HashMap<>();
+        Map<String,Integer> column_wise = new HashMap<>();
+
+        // row-wise
+        for (int[] row : grid){
+            StringBuilder str = new StringBuilder();
+            for(int i : row){
+                str.append(i).append(" ");
+            }
+            row_wise.put(str.toString(), row_wise.getOrDefault(str.toString(),0)+1);
+        }
+
+//        System.out.println("---------------");
+
+        // column-wise
+        for (int i = 0; i < grid[0].length; i++) {
+            StringBuilder str = new StringBuilder();
+            for (int j = 0; j < grid.length; j++) {
+                str.append(grid[j][i]).append(" ");
+            }
+            column_wise.put(str.toString(), column_wise.getOrDefault(str.toString(),0)+1);
+        }
+        System.out.println(row_wise);
+        System.out.println(column_wise);
+
+        int result = 0;
+        // result counting
+        for(Map.Entry<String,Integer> entry : column_wise.entrySet()){
+            if(row_wise.containsKey(entry.getKey())){
+                result += entry.getValue() * row_wise.get(entry.getKey());
+            }
+        }
+
+        return result;
+    }
 
 
     public static void main(String[] args) {
         Solution s = new Solution();
-
+//        System.out.println(s.equalPairs(new int[][]{
+//                new int[]{3, 1, 2, 2},
+//                new int[]{1, 4, 4, 5},
+//                new int[]{2, 4, 2, 2},
+//                new int[]{2, 4, 2, 2}
+//        }));
+        System.out.println(s.equalPairs(new int[][]{
+                new int[]{11, 1},
+                new int[]{1, 11}
+        }));
     }
 }
